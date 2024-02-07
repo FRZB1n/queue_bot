@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
-from core import admin_start, add_queue
+from core import admin_start, add_queue, admin_update
 from cfg import BOT_TOKEN
 
 
@@ -13,6 +13,10 @@ dp = Dispatcher(bot, storage=storage)
 async def start(message: types.Message):
     await admin_start(bot, message)
 
+
+@dp.message_handler(commands=['update'])
+async def start(message: types.Message):
+    await admin_update(bot, message)
 
 @dp.callback_query_handler(lambda c: c.data == "to_queue")
 async def registration_handler(call: types.CallbackQuery):
