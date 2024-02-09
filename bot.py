@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
-from core import admin_start, add_queue, admin_update, delete_user
+from core import admin_start, add_queue, admin_update, delete_user, set_user
 from cfg import BOT_TOKEN
 
 
@@ -16,8 +16,10 @@ async def start(message: types.Message):
 @dp.message_handler(commands=['delete'])
 async def delete_user_h(message: types.Message):
     await delete_user(bot, message)
-    # Проверяем, что после команды /delete есть аргумент (ID пользователя)
-    
+
+@dp.message_handler(commands=['set'])
+async def set_user_h(message: types.Message):
+    await set_user(bot, message)
 
 
 @dp.message_handler(commands=['update'])
